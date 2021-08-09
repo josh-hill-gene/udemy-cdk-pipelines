@@ -11,23 +11,6 @@ export class PipelineStack extends cdk.Stack {
   private readonly cdkBuildOutput: Artifact;
   private readonly serviceBuildOutput: Artifact;
 
-  public addServiceStage(serviceStack: ServiceStack, stageName: string) {
-    this.pipeline.addStage({
-      stageName: stageName,
-      actions: [
-        new CloudFormationCreateUpdateStackAction({
-          actionName: 'Service_Update',
-          stackName: serviceStack.stackName,
-          templatePath: this.cdkBuildOutput.atPath(`${serviceStack.stackName}.template.json`),
-          adminPermissions: true,
-          parameterOverrides: {
-            ...serviceStack.serviceCode.assign(this.serviceBuildOutput.s3Location)
-          }
-        })
-      ]
-    });
-  }
-
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -109,4 +92,22 @@ export class PipelineStack extends cdk.Stack {
       ]
     });
   }
+
+  public addServiceStage(serviceStack: ServiceStack, stageName: string) {
+    this.pipeline.addStage({
+      stageName: stageName,
+      actions: [
+        new CloudFormationCreateUpdateStackAction({
+          actionName: 'Service_Update',
+          stackName: serviceStack.stackName,
+          templatePath: this.cdkBuildOutput.atPath(`${serviceStack.stackName}.template.json`),
+          adminPermissions: true,
+          parameterOverrides: {
+            ...serviceStack.serviceCode.assign(this.serviceBuildOutput.s3Location)
+          }
+        })
+      ]
+    });
+  }
+
 }
