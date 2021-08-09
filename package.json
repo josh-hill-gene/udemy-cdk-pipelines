@@ -2,7 +2,7 @@
   "name": "udemy-cdk-pipelines",
   "version": "0.1.0",
   "bin": {
-    "udemy-cdk-pipelines": "bin/udemy-cdk-pipelines.js"
+    "pipeline": "bin/pipeline.js"
   },
   "scripts": {
     "build": "tsc",

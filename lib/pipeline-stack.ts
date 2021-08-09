@@ -4,7 +4,7 @@ import { CloudFormationCreateUpdateStackAction, CodeBuildAction, GitHubSourceAct
 import { SecretValue } from '@aws-cdk/core';
 import { BuildSpec, LinuxBuildImage, PipelineProject } from '@aws-cdk/aws-codebuild';
 
-export class UdemyCdkPipelinesStack extends cdk.Stack {
+export class PipelineStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -56,7 +56,7 @@ export class UdemyCdkPipelinesStack extends cdk.Stack {
         new CloudFormationCreateUpdateStackAction({
           actionName: 'Pipeline_Update',
           stackName: 'PipelineStack',
-          templatePath: cdkBuildOutput.atPath('UdemyCdkPipelinesStack.template.json'),
+          templatePath: cdkBuildOutput.atPath('PipelineStack.template.json'),
           adminPermissions: true
         })
       ]
