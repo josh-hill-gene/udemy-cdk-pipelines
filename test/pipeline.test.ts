@@ -1,13 +1,11 @@
-import { expect as expectCDK, matchTemplate, MatchStyle } from '@aws-cdk/assert';
+import { expect as expectCDK, matchTemplate, MatchStyle, SynthUtils } from '@aws-cdk/assert';
 import * as cdk from '@aws-cdk/core';
-import * as UdemyCdkPipelines from '../lib/pipeline-stack';
+import * as CdkPipeline from '../lib/pipeline-stack';
 
-test('Empty Stack', () => {
+test('Pipeline Stack', () => {
     const app = new cdk.App();
     // WHEN
-    const stack = new UdemyCdkPipelines.PipelineStack(app, 'MyTestStack');
+    const stack = new CdkPipeline.PipelineStack(app, 'MyTestStack');
     // THEN
-    expectCDK(stack).to(matchTemplate({
-      "Resources": {}
-    }, MatchStyle.EXACT))
+expect(SynthUtils.toCloudFormation(stack)).toMatchSnapshot();
 });
