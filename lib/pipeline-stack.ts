@@ -105,8 +105,7 @@ export class PipelineStack extends cdk.Stack {
           parameterOverrides: {
             ...serviceStack.serviceCode.assign(this.serviceBuildOutput.s3Location)
           },
-          extraInputs: [
-            this.serviceBuildOutput
+          extraInputs: [this.serviceBuildOutput
           ],
         })
       ]
