@@ -124,7 +124,7 @@ export class PipelineStack extends cdk.Stack {
   };
 
   // it was important to commit this file ahead of changes made in the same session
-  // to avoid cyclic dependencies
+  // to avoid cyclic dependencies. might not be idempotent
   public addServiceIntegrationTestToStage(stage: IStage, serviceEndpoint: string) {
     stage.addAction(new CodeBuildAction({
       actionName: 'Integration_Tests',
