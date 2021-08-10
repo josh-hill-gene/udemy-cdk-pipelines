@@ -1,4 +1,11 @@
-import { expect as expectCDK, matchTemplate, MatchStyle, SynthUtils, haveResourceLike, arrayWith, objectLike } from '@aws-cdk/assert';
+import {
+    expect as
+        expectCDK,
+    SynthUtils,
+    haveResourceLike,
+    arrayWith,
+    objectLike
+} from '@aws-cdk/assert';
 import * as cdk from '@aws-cdk/core';
 import { App } from '@aws-cdk/core';
 import { BillingStack } from '../lib/billing-stack';
@@ -17,7 +24,7 @@ test('Pipeline Stack', () => {
 test('Adding Service Stage', () => {
     // GIVEN
     const app = new App();
-    const serviceStack = new ServiceStack(app, 'ServiceStack');
+    const serviceStack = new ServiceStack(app, 'ServiceStack', { stageName: 'Test' });
     const pipelineStack = new PipelineStack(app, 'PipelineStack');
 
     // WHEN
@@ -34,11 +41,10 @@ test('Adding Service Stage', () => {
         }));
 });
 
-
 test('Adding Billing Stack to a Stage', () => {
     // GIVEN
     const app = new App();
-    const serviceStack = new ServiceStack(app, 'ServiceStackApp');
+    const serviceStack = new ServiceStack(app, 'ServiceStackApp', { stageName: 'Test' });
     const pipelineStack = new PipelineStack(app, 'PipelineStack');
     const billingStack = new BillingStack(app, 'BillingStack', {
         budgetAmount: 5,
